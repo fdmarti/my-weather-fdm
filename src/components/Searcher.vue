@@ -1,5 +1,5 @@
 <template>
-    <input type="text" v-model="place" class="p-4 rounded-xl w-80 outline-none opacity-40" @keyup="searchPlace" placeholder="Type your city">
+    <input type="text" v-model="place" class="p-4 rounded-xl mx-auto w-5/6 outline-none opacity-40" @keyup="searchPlace" placeholder="Type your city">
 </template>
 
 <script>

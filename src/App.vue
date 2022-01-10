@@ -1,14 +1,12 @@
 <template>
-    <div class="container mx-auto min-h-screen bg-blue-300 flex flex-col items-center">
-        <Searcher class="mt-14"/>
+    <div class="container mx-auto min-h-screen bg-gradient-to-r from-cyan-500 to-blue-300 flex flex-col">
         <Home />
     </div>
 </template>
 
 <script>
 import Home from "./views/Home.vue";
-import Searcher from "./components/Searcher.vue";
 export default {
-    components: { Home, Searcher }
+    components: { Home }
 }
 </script>
