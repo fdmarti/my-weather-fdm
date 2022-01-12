@@ -5,9 +5,7 @@
 <script>
 import { ref } from '@vue/reactivity'
 import store from '../store'
-import ResultsSearcher from './ResultsSearcher.vue'
 export default {
-    components: {ResultsSearcher},
     setup(){
         const place = ref('')
 

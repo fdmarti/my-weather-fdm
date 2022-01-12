@@ -1,11 +1,12 @@
 import { createStore } from 'vuex'
+import UserPlaces from '../modules/UserPlaces'
 
 export default createStore({
     state:{
         placeSelected : '',
         placeTime: [],
         places:[],
-        weather : {}
+        weather : {},
     },
     mutations:{
         setPlaces(state,payload){
@@ -52,7 +53,7 @@ export default createStore({
         },
 
         async getCurrentTimeLocation({commit},location){
-            await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${import.meta.env.VITE_API_TIME_ZONE}&format=json&by=position&lat=${location.center[1]}&lng=${location.center[0]}`)
+            await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${import.meta.env.VITE_API_TIME_ZONE}&format=json&by=position&lat=${location[1]}&lng=${location[0]}`)
             .then(response => response.json())
             .then(data => commit('setPlaceTime',data))
         },
@@ -61,6 +62,13 @@ export default createStore({
             commit('clearWeather')
             commit('setPlaceSelected','')
         },
+
+        setWeatherByUser({commit,dispatch},place){
+            commit('setPlaceSelected',place.nombre)
+            commit('setWeather',place)
+            const coord = {0 : place.coord.lon, 1 : place.coord.lat}
+            dispatch('getCurrentTimeLocation',coord)
+        }
     },
     getters:{
         places(state){
@@ -75,5 +83,9 @@ export default createStore({
         time(state){
             return state.placeTime
         }
+    },
+
+    modules:{
+        UserPlaces
     }
 })

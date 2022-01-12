@@ -19,7 +19,7 @@ export default {
         const getPlacesByLocation = (country) => {
             if ( country ) {
                 store.dispatch('getWeather',country)
-                store.dispatch('getCurrentTimeLocation',country)
+                store.dispatch('getCurrentTimeLocation',country.center)
             }
         }
 
