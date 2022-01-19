@@ -34,6 +34,10 @@ export default {
             }
         },
         addToFav({commit},place){
+
+            const { id , nombre, coord, ...rest } = place
+            const location = { id , nombre, coord }
+
             const places = localStorage.getItem('places')
 
             if ( places ){
@@ -49,13 +53,17 @@ export default {
                     }, 3000);
 
                 }else{
-                    arrPlaces.push(place)
+                    arrPlaces.push({
+                        id,
+                        nombre,
+                        coord
+                    })
                     localStorage.setItem('places',JSON.stringify(arrPlaces))
-                    commit('addPlace',place)
+                    commit('addPlace',location)
                 }
             }else{
-                localStorage.setItem('places',JSON.stringify([place]))
-                commit('addPlace',place)
+                localStorage.setItem('places',JSON.stringify([location]))
+                commit('addPlace',location)
             }
         },
 

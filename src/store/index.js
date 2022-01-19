@@ -42,12 +42,14 @@ export default createStore({
             commit('clearPlaces')
         },
 
-        async getWeather({commit},location){
+        async getWeather({commit,state},location){
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.center[1]}&lon=${location.center[0]}&appid=${import.meta.env.VITE_API_TOKEN_WEATHER}&units=metric`)
             .then(response => response.json())
             .then(data => {
                 commit('setWeather',data)
-                commit('setPlaceSelected',location.place_name)
+                if ( !state.placeSelected ){
+                    commit('setPlaceSelected',location.place_name)
+                }
                 commit('clearPlaces')
             })
         },
@@ -65,9 +67,12 @@ export default createStore({
 
         setWeatherByUser({commit,dispatch},place){
             commit('setPlaceSelected',place.nombre)
-            commit('setWeather',place)
-            const coord = {0 : place.coord.lon, 1 : place.coord.lat}
-            dispatch('getCurrentTimeLocation',coord)
+            const coord = {
+                center : [place.coord.lon, place.coord.lat]
+            }
+            const coordTime = { 0: place.coord.lon, 1: place.coord.lat }
+            dispatch('getWeather',coord)
+            dispatch('getCurrentTimeLocation',coordTime)
         }
     },
     getters:{

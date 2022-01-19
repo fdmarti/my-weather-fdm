@@ -8,8 +8,8 @@
                 <li v-if="places.length === 0"> You don't have any fav places </li>
                 <li></li>
                 <li v-for="place in places" :key="place.id" class="my-1 flex justify-between items-center">
-                    <span @click="loadPlaceByUser(place)"> {{place.nombre}} </span>
-                    <i class='bx bxs-trash-alt ml-10 pointer' @click="removePlace(place)"></i>
+                    <span @click="loadPlaceByUser(place)" class="cursor-pointer"> {{place.nombre}} </span>
+                    <i class='bx bxs-trash-alt ml-10 cursor-pointer' @click="removePlace(place)"></i>
                 </li>
         </ul>
       </div>
